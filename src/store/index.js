@@ -32,6 +32,7 @@ export default new Vuex.Store({
     },
     SET_GAMES(state, games) {
       state.games = state.games.concat(games);
+      state.gamesCurrentPage = state.gamesCurrentPage + 1;
     },
     SET_GAMESPAGE(state, page) {
       state.gamesCurrentPage = page;

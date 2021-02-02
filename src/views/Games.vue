@@ -1,63 +1,70 @@
 <template>
   <div class="games container">
-    <ul class="pagination">
-      <li class="page-item disabled">
-        <a href="#" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item active">
-        <a href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a href="#">2</a>
-      </li>
-      <li class="page-item">
-        <a href="#">3</a>
-      </li>
-      <li class="page-item">
-        <span>...</span>
-      </li>
-      <li class="page-item">
-        <a href="#">12</a>
-      </li>
-      <li class="page-item">
-        <a href="#">Next</a>
-      </li>
-    </ul>
-    <div class="tile is-ancestor">
-      <div class="tile is-vertical" v-if="list">
-        <HorizontalItem
-          :demo="demo"
-          class="tile"
-          v-for="demo in list"
-          :key="demo.appid"
-        />
+    <div class="columns" v-for="(chunk, i) in chunked" :key="i">
+      <div class="column is-one-third" v-for="demo in chunk" :key="demo.appid">
+        <GameItem :demo="demo" class="tile" />
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-full">
+        <b-button
+          type="is-danger"
+          expanded
+          outlined
+          :disabled="loading"
+          :loading="loading"
+          @click="loadMore"
+        >
+          LOAD MORE</b-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import HorizontalItem from "../components/HorizontalItem";
+import GameItem from "../components/GameItem";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  components: { HorizontalItem },
+  components: { GameItem },
   data() {
-    return {};
+    return { loading: false };
   },
   async created() {
-    try {
-      await this.fetchGames();
-    } catch (e) {
-      this.addError(e);
-    }
+    await this.loadMore();
   },
   methods: {
     ...mapActions(["addError", "fetchGames", "changePage"]),
+    async loadMore() {
+      try {
+        // this.loading = true;
+        await this.fetchGames();
+        // this.loading = false;
+      } catch (e) {
+        console.log(e);
+        this.addError(e);
+      }
+    },
   },
-  computed: mapState({
-    list: (state) => state.games,
-  }),
+  computed: {
+    ...mapState({
+      list: (state) => state.games,
+    }),
+    chunked() {
+      if (!this.list) return [[]];
+      const chunked = [];
+      let i,
+        j,
+        temparray,
+        chunk = 3;
+      for (i = 0, j = this.list.length; i < j; i += chunk) {
+        temparray = this.list.slice(i, i + chunk);
+        chunked.push(temparray);
+      }
+      return chunked;
+    },
+  },
 };
 </script>
 
