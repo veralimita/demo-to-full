@@ -10,13 +10,29 @@
         <div class="card-content">
           <div class="media-content has-text-left" style="margin-bottom: 1rem">
             <p class="title is-4">{{ demo.name }}</p>
-            <p class="subtitle is-6">@author</p>
           </div>
           <div class="content has-text-left">
-            <div class="ellipsis is-ellipsis-2" style="margin-bottom: 1rem">
+            <div class="ellipsis is-ellipsis-4 is-size-6-5" style="margin-bottom: 1rem">
               {{ demo.short }}
             </div>
-            <time :datetime="demo.release">{{ getRelease(demo) }}</time>
+            <div class="block">
+              <div>
+                Demo release date:
+                <time :datetime="demo.release">{{
+                  getDate(demo.release)
+                }}</time>
+              </div>
+              <div v-if="demo.parent_release">
+                Game release date:
+                <time :datetime="demo.parent_release">{{
+                  getDate(demo.parent_release)
+                }}</time>
+              </div>
+              <div>
+                Platform{{ demo.platforms.length > 1 ? "s" : "" }}:
+                {{ demo.platforms.map((platform) => platform.name).join(", ") }}
+              </div>
+            </div>
           </div>
         </div>
         <footer class="card-footer">
@@ -42,11 +58,11 @@ export default {
     getHeader(demo) {
       return `https://cdn.akamai.steamstatic.com/steam/apps/${demo.appid}/capsule_616x353.jpg`;
     },
-    getRelease(value) {
+    getDate(value) {
       try {
-        return format(new Date(value.release), "MMM dd, yyyy");
+        return format(new Date(value), "MMM dd, yyyy");
       } catch (e) {
-        return value.release;
+        return value;
       }
     },
   },
@@ -85,6 +101,10 @@ h1.title.white {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.is-ellipsis-4 {
+  -webkit-line-clamp: 5;
 }
 
 .is-ellipsis-2 {
@@ -178,5 +198,13 @@ h1.title.white {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.is-size-6-5 {
+  font-size: 0.9rem
+}
+
+#list .card-content {
+  padding: 1.5rem 1.5rem 0rem;
 }
 </style>
