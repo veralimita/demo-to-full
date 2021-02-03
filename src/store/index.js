@@ -44,7 +44,7 @@ export default new Vuex.Store({
     },
     fetchHighlights({ commit, state }) {
       // const getList = axios.get("http://api.steamdemo.club/demo");
-      const call = "https://api.steamdemo.club/new";
+      const call = "https://api.demo2full.com/new";
       return new Promise((resolve, reject) => {
         state.queue.push(call, (error, r) => {
           if (error) return reject(error);
@@ -53,7 +53,7 @@ export default new Vuex.Store({
       })
     },
     fetchLatests({ commit, state }) {
-      const call = "https://api.steamdemo.club/comingsoon";
+      const call = "https://api.demo2full.com/comingsoon";
       return new Promise((resolve, reject) => {
         state.queue.push(call, (error, r) => {
           if (error) return reject(error);
@@ -62,7 +62,7 @@ export default new Vuex.Store({
       })
     },
     fetchList({ commit, state }) {
-      const call = "https://api.steamdemo.club/demo";
+      const call = "https://api.demo2full.com/demo";
       return new Promise((resolve, reject) => {
         state.queue.push(call, (error, r) => {
           if (error) return reject(error);
@@ -71,7 +71,7 @@ export default new Vuex.Store({
       })
     },
     fetchGames({ commit, state }) {
-      const call = "https://api.steamdemo.club/demo?page=" + state.gamesCurrentPage;
+      const call = "https://api.demo2full.com/demo?page=" + state.gamesCurrentPage;
       return new Promise((resolve, reject) => {
         state.queue.push(call, (error, r) => {
           if (error) return reject(error);
