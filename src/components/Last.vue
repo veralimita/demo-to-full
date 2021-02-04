@@ -39,7 +39,11 @@
                     <b-rate :value="demo.rating" show-score disabled />
                   </p>
                   <p class="control" style="margin-left: auto">
-                    <b-button size="is-small" type="is-danger" outlined
+                    <b-button
+                      size="is-small"
+                      type="is-danger"
+                      outlined
+                      @click="() => openSteam(demo)"
                       >Go to Steam</b-button
                     >
                   </p>
@@ -49,6 +53,7 @@
           </div>
         </template>
       </b-carousel-list>
+      <b-skeleton :active="!latests" height="400px"></b-skeleton>
     </section>
   </div>
 </template>
@@ -75,6 +80,12 @@ export default {
     },
     info(value) {
       this.activeCard = value;
+    },
+    openSteam(value) {
+      window.open(
+        `https://store.steampowered.com/app/${value.appid}`,
+        "_blank"
+      );
     },
     getDistance(value) {
       return formatDistance(new Date(value.release), new Date(), {

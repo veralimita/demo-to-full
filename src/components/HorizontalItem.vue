@@ -12,7 +12,10 @@
             <p class="title is-4">{{ demo.name }}</p>
           </div>
           <div class="content has-text-left">
-            <div class="ellipsis is-ellipsis-4 is-size-6-5" style="margin-bottom: 1rem">
+            <div
+              class="ellipsis is-ellipsis-4 is-size-6-5"
+              style="margin-bottom: 1rem"
+            >
               {{ demo.short }}
             </div>
             <div class="block">
@@ -37,7 +40,9 @@
         </div>
         <footer class="card-footer">
           <div class="card-footer-item has-text-left">
-            <b-button type="is-danger" outlined>Go to Steam</b-button>
+            <b-button type="is-danger is-link" outlined @click="openSteam"
+              >Go to Steam</b-button
+            >
           </div>
         </footer>
       </div>
@@ -55,6 +60,12 @@ export default {
   },
   async created() {},
   methods: {
+    openSteam() {
+      window.open(
+        `https://store.steampowered.com/app/${this.demo.appid}`,
+        "_blank"
+      );
+    },
     getHeader(demo) {
       return `https://cdn.akamai.steamstatic.com/steam/apps/${demo.appid}/capsule_616x353.jpg`;
     },
@@ -201,7 +212,7 @@ h1.title.white {
 }
 
 .is-size-6-5 {
-  font-size: 0.9rem
+  font-size: 0.9rem;
 }
 
 #list .card-content {

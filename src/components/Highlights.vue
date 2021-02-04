@@ -1,34 +1,45 @@
 <template>
-  <b-carousel :indicator-inside="false" v-if="highlights">
-    <b-carousel-item v-for="(carousel, i) in highlights" :key="i">
-      <section :class="`hero is-large`">
-        <div class="hero-body">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img :src="getHeader(carousel)" alt="Placeholder image" />
-              </figure>
-              <div class="css-gradient"></div>
-              <div class="content has-text-left">
-                <h1 class="white is-size-3">{{ carousel.name }}</h1>
-                <div class="white is-size-6 ellipsis is-ellipsis-2">
-                  {{ carousel.short }}
-                </div>
-                <div class="buttons" style="margin-top: 1em">
-                  <b-button type="is-danger"> Show more </b-button>
+  <div>
+    <b-carousel
+      :indicator-inside="false"
+      v-if="highlights && highlights.length"
+    >
+      <b-carousel-item v-for="(carousel, i) in highlights" :key="i">
+        <section :class="`hero is-large`">
+          <div class="hero-body">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image">
+                  <img :src="getHeader(carousel)" alt="Placeholder image" />
+                </figure>
+                <div class="css-gradient"></div>
+                <div class="content has-text-left">
+                  <h1 class="white is-size-3">{{ carousel.name }}</h1>
+                  <div class="white is-size-6 ellipsis is-ellipsis-2">
+                    {{ carousel.short }}
+                  </div>
+                  <div class="buttons" style="margin-top: 1em">
+                    <b-button
+                      type="is-danger"
+                      @click.prevent.stop="() => openSteam(carousel)"
+                    >
+                      Show more
+                    </b-button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </section>
+      </b-carousel-item>
+      <template #indicators="props">
+        <div class="card highlight-card">
+          {{ highlights[props.i].name }}
         </div>
-      </section>
-    </b-carousel-item>
-    <template #indicators="props">
-      <div class="card highlight-card">
-        {{ highlights[props.i].name }}
-      </div>
-    </template>
-  </b-carousel>
+      </template>
+    </b-carousel>
+    <b-skeleton height="428px" :active="!highlights"></b-skeleton>
+  </div>
 </template>
 
 <script>
@@ -46,6 +57,12 @@ export default {
     ...mapActions(["addError", "fetchHighlights"]),
     getHeader(demo) {
       return `https://cdn.akamai.steamstatic.com/steam/apps/${demo.appid}/capsule_616x353.jpg`;
+    },
+    openSteam(value) {
+      window.open(
+        `https://store.steampowered.com/app/${value.appid}`,
+        "_blank"
+      );
     },
   },
   computed: mapState({

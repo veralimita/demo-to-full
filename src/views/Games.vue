@@ -32,6 +32,7 @@ export default {
     return { loading: false };
   },
   async created() {
+    window.scrollTo(0, 0);
     await this.loadMore();
   },
   methods: {

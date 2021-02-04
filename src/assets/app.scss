@@ -13,6 +13,8 @@ $carousel-arrow-color: $primary;
 $title-size: $size-4;
 $title-weight: $weight-normal;
 $card-footer-border-top: none;
+$footer-background-color: #202020;
+$skeleton-background: linear-gradient(90deg, $footer-background-color 25%, rgba($footer-background-color, 0.5) 50%, $footer-background-color 75%);
 
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);

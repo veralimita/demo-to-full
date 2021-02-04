@@ -11,7 +11,13 @@
       </div>
     </div>
     <div class="buttons">
-      <b-button tag="router-link" to="/games" type="is-link">
+      <b-button
+        tag="router-link"
+        to="/games"
+        type="is-danger is-link"
+        expanded
+        outlined
+      >
         Show more
       </b-button>
     </div>

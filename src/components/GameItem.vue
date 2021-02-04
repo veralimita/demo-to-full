@@ -1,5 +1,9 @@
 <template>
-  <a href="#" class="game-item" @click.prevent="goToSteam">
+  <a
+    :href="`https://store.steampowered.com/app/${demo.appid}`"
+    target="_blank"
+    class="game-item"
+  >
     <div class="card" style="margin-bottom: 2rem">
       <div class="card-image hover-highligth">
         <figure class="image">

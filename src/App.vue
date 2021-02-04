@@ -7,14 +7,14 @@
         </b-navbar-item>
       </template>
     </b-navbar>
-    <div>
-      <router-view />
-    </div>
+    <router-view />
+    <Footer style="margin-top: 3rem" />
   </div>
 </template>
 
 <script>
-export default {};
+import Footer from "./components/Footer.vue";
+export default { components: { Footer } };
 </script>
 
 <style lang="scss">
