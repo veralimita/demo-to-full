@@ -1,6 +1,14 @@
 <template>
   <div class="home container">
     <div id="home">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li class="is-active">
+            <a href="/" aria-current="page">Home</a>
+          </li>
+          <li><a href="/games">Games</a></li>
+        </ul>
+      </nav>
       <Highlights />
       <Last />
       <List />

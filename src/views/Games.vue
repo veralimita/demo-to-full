@@ -1,5 +1,13 @@
 <template>
   <div class="games container">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <a href="/" aria-current="page">Home</a>
+        </li>
+        <li class="is-active"><a href="/games">Games</a></li>
+      </ul>
+    </nav>
     <div class="columns" v-for="(chunk, i) in chunked" :key="i">
       <div class="column is-one-third" v-for="demo in chunk" :key="demo.appid">
         <GameItem :demo="demo" class="tile" />
